@@ -6,8 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // Set basePath to repo name for GitHub Pages
-  // basePath: "/RisksofAI",
+  // Required for GitHub Pages — repo is served from /RisksofAI/
+  basePath: "/RisksofAI",
 };
 
 export default nextConfig;
