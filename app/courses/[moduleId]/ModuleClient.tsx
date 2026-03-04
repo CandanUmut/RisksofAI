@@ -25,10 +25,11 @@ export default function ModuleClient({ module }: Props) {
     red: { text: "text-red-400", border: "border-red-700", bg: "bg-red-900/30" },
     purple: { text: "text-purple-400", border: "border-purple-700", bg: "bg-purple-900/30" },
     green: { text: "text-green-400", border: "border-green-700", bg: "bg-green-900/30" },
+    orange: { text: "text-orange-400", border: "border-orange-700", bg: "bg-orange-900/30" },
   };
 
   const pbColor: Record<string, string> = {
-    blue: "bg-blue-500", red: "bg-red-500", purple: "bg-purple-500", green: "bg-green-500"
+    blue: "bg-blue-500", red: "bg-red-500", purple: "bg-purple-500", green: "bg-green-500", orange: "bg-orange-500"
   };
 
   const colors = colorMap[module.color] ?? colorMap.blue;

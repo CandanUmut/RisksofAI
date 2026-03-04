@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { modules, badges, type Module, type Lesson } from "@/lib/courses";
+import { modules, badges, type Module, type Lesson, type PromptExample, type RealWorldCase } from "@/lib/courses";
 import { getProgress, markLessonComplete, saveQuizScore, earnBadge } from "@/lib/progress";
 import QuizSection from "@/components/QuizSection";
 
@@ -60,6 +60,7 @@ export default function LessonClient({ module, lesson, moduleId, lessonId }: Pro
     red: { text: "text-red-400", border: "border-red-800", bg: "bg-red-950/50", highlight: "border-l-red-500 bg-red-950/30" },
     purple: { text: "text-purple-400", border: "border-purple-800", bg: "bg-purple-950/50", highlight: "border-l-purple-500 bg-purple-950/30" },
     green: { text: "text-green-400", border: "border-green-800", bg: "bg-green-950/50", highlight: "border-l-green-500 bg-green-950/30" },
+    orange: { text: "text-orange-400", border: "border-orange-800", bg: "bg-orange-950/50", highlight: "border-l-orange-500 bg-orange-950/30" },
   };
 
   const colors = colorMap[module.color] ?? colorMap.blue;
@@ -192,6 +193,73 @@ export default function LessonClient({ module, lesson, moduleId, lessonId }: Pro
               ))}
             </ul>
           </div>
+
+          {/* Prompt Examples */}
+          {lesson.promptExamples && lesson.promptExamples.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span>✍️</span> Prompt Examples: Weak vs. Strong
+              </h3>
+              <div className="space-y-4">
+                {lesson.promptExamples.map((ex: PromptExample, i: number) => (
+                  <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                    <div className="px-5 py-3 border-b border-gray-800">
+                      <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{ex.label}</span>
+                    </div>
+                    <div className="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-gray-800">
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs font-bold text-red-400 uppercase tracking-wider">Weak Prompt</span>
+                        </div>
+                        <p className="text-gray-300 text-sm font-mono bg-gray-950 rounded-lg p-3 leading-relaxed">{ex.weak}</p>
+                      </div>
+                      <div className="p-5">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs font-bold text-green-400 uppercase tracking-wider">Strong Prompt</span>
+                        </div>
+                        <p className="text-gray-300 text-sm font-mono bg-gray-950 rounded-lg p-3 leading-relaxed">{ex.strong}</p>
+                      </div>
+                    </div>
+                    <div className="px-5 py-3 bg-blue-950/30 border-t border-blue-900/50">
+                      <p className="text-xs text-blue-300 leading-relaxed"><span className="font-semibold">Why it matters: </span>{ex.explanation}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Real-World Cases */}
+          {lesson.realWorldCases && lesson.realWorldCases.length > 0 && (
+            <div className="mt-8">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span>🗂️</span> Real-World Cases
+              </h3>
+              <div className="space-y-4">
+                {lesson.realWorldCases.map((c: RealWorldCase, i: number) => (
+                  <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                    <div className="px-5 py-3 border-b border-gray-800">
+                      <span className="text-sm font-bold text-white">{c.title}</span>
+                    </div>
+                    <div className="p-5 space-y-3">
+                      <div>
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1">What happened</span>
+                        <p className="text-gray-300 text-sm leading-relaxed">{c.scenario}</p>
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1">Outcome</span>
+                        <p className="text-gray-300 text-sm leading-relaxed">{c.outcome}</p>
+                      </div>
+                      <div className="bg-amber-950/30 border border-amber-900/50 rounded-xl px-4 py-3">
+                        <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider block mb-1">Key Lesson</span>
+                        <p className="text-amber-200 text-sm leading-relaxed">{c.lesson}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
